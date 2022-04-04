@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container{
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+.primColor{
+    color: #5cb85c;
+}
+.active{
+    color: gray;
+}
+.primBack{
+    background-color: #5cb85c;
+}
+.input-field{
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    width: 40%;
+    display: block;
+    margin: 0.8rem auto;
+    padding: 0.8rem;
+    outline: lightblue;
+    font-size: 1.4rem;
+}
+.text-red{
+    color: red;
+}
+.flex-65{
+    flex: 0 1 65%
+}
+.flex-30{
+    flex: 0 1 30%
+}
+.light-gray{
+    color: lightgrey;
+}
+.img-post{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.like-btn{
+    color: #5cb85c;
+    border: 1px solid #5cb85c;
+    padding: .4rem;
+    border-radius: 12px;
+}
+.sidebar{
+    background-color: #f3f4f6;
+    margin-left:2rem ;
+    padding: .4rem;
+}
+.tags{
+    background-color: #9ca3af;
+    color: white;
+    padding: .2rem .4rem;
+    border-radius: 16px;
+    margin: .2rem;
+}
+.pages{
+    border: 1px solid #5cb85c;
+    padding: 0.4rem;
+    color: #5cb85c;
+}
+.pagination-count{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.activePage{
+    color: white;
+    background-color: #5cb85c;
+}
+.single-article{
+    background-color: #333333;
+    padding: 1.6rem 0;
+}
+.active-nav{
+    margin-right: 2.4rem;
+    color: #a7adb8;
+}
+.posts-nav{
+    display: flex;
+    border-bottom: 1px solid #d1d5db;
+    margin-bottom: 3rem;
+}
+.active-Tab{
+    border-bottom: 2px solid #5cb85c;
+    color: #5cb85c;
+}
+
+
