@@ -3,4 +3,7 @@ const LoginURL= BaseURL + "users/login";
 const RegistrationURL = BaseURL + "users"
 const ArticlesURL = BaseURL + "articles"
 const tagsURL = BaseURL + "tags"
-export {BaseURL, LoginURL,RegistrationURL,ArticlesURL,tagsURL}
+const userVerifyURL = BaseURL + "user"
+
+const localStorageKey = "app_user"
+export {BaseURL, LoginURL,RegistrationURL,ArticlesURL,tagsURL,localStorageKey,userVerifyURL}
