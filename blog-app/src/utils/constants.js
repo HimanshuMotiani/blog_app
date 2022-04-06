@@ -4,6 +4,7 @@ const RegistrationURL = BaseURL + "users"
 const ArticlesURL = BaseURL + "articles"
 const tagsURL = BaseURL + "tags"
 const userVerifyURL = BaseURL + "user"
+const ProfileURL = BaseURL + 'profiles';
 
 const localStorageKey = "app_user"
-export {BaseURL, LoginURL,RegistrationURL,ArticlesURL,tagsURL,localStorageKey,userVerifyURL}
+export {BaseURL, LoginURL,RegistrationURL,ArticlesURL,tagsURL,localStorageKey,userVerifyURL,ProfileURL}
