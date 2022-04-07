@@ -2,6 +2,8 @@ import React from "react";
 import { Link, withRouter} from "react-router-dom";
 import { ArticlesURL } from "../utils/constants";
 import Loader from "./Loader";
+import CommentBox from './CommentBox'
+
 class SinglePost extends React.Component {
   state = {
     article: null,
@@ -28,6 +30,24 @@ class SinglePost extends React.Component {
         });
       });
   }
+  handleDelete = (slug) => {
+    fetch(ArticlesURL + '/' + slug, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + this.props.user.token,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject('Unable to delete!');
+        }
+      })
+      .then(() => {
+        this.props.history.push('/');
+      })
+      .catch((error) => this.setState({ error }));
+  };
   render() {
     const { article, error } = this.state;
     if (error) {
@@ -52,17 +72,44 @@ class SinglePost extends React.Component {
                 <h5 className="primColor text-sm">{article.author.username}</h5>
                 <h6 className="light-gray text-sm">{article.createdAt}</h6>
               </div>
+              {this.props.user &&
+            this.props.user.username === article.author.username ? (
+              <div>
+                <button className="border border-gray-400 rounded ml-6 px-3 text-sm py-1 text-gray-400 hover:bg-gray-400 hover:text-white">
+                  <Link to={`/edit-article/${article.slug}`}>
+                    <i class="fas fa-edit"></i> Edit Article
+                  </Link>
+                </button>
+                <button
+                  className="border border-red-400 rounded ml-2 px-3 text-sm py-1 text-red-400 hover:bg-red-400 hover:text-white"
+                  onClick={() => {
+                    this.handleDelete(article.slug);
+                  }}
+                >
+                  <i class="fas fa-trash-alt"></i> Delete Article
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
             </div>
           </div>
           <div className="mx-28 my-10">
             <p className="text-gray-600">{article.description}</p>
-            <h6 className="inline-block mt-5 light-gray border border-gray-300 text-xs rounded-lg px-2 py-1 ">
-              database
-            </h6>
+            <ul className="mt-10">
+            {article.tagList.map((tag) => (
+              <li
+                key={tag}
+                className="text-gray-400 font-light border rounded-lg inline-block px-2 text-xm ml-1"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
           </div>
           <hr className="my-5"></hr>
         </article>
-        {this.props.user?(<footer className="text-center mt-16">
+        {!this.props.user?(<footer className="text-center mt-16">
           <div>
             <p>
               <Link className="primColor" to="/login">Sign in</Link> or 
@@ -71,7 +118,7 @@ class SinglePost extends React.Component {
           </div>
         </footer>
         )
-        :""
+        :<CommentBox slug={this.props.match.params.slug} user={this.props.user}/>
         }
 
       </>

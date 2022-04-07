@@ -37,7 +37,7 @@ export default class Tags extends React.Component {
             <h3 className="font-bold text-xl my-4">Popular Tags</h3>
             <div className="flex flex-wrap">
                 {tags.map(tag=>(
-                    <span key={tag} onClick={()=>this.props.addTab(tag)} className="tags cursor-pointer hover:bg-gray-300">{tag}</span>
+                    <span key={tag} onClick={()=>this.props.addTab(tag)} className="tags cursor-pointer text-sm hover:bg-gray-300">{tag}</span>
                 ))}
             </div>
             
