@@ -1,14 +1,15 @@
 import React from "react";
+import { Link, withRouter} from "react-router-dom";
 import { ArticlesURL } from "../utils/constants";
-import Loader from './Loader';
-export default class SinglePost extends React.Component {
+import Loader from "./Loader";
+class SinglePost extends React.Component {
   state = {
-      article:null,
-      error:''
-  }
-  componentDidMount(){
-      let slug = this.props.match.params.slug
-    fetch(ArticlesURL+"/"+slug)
+    article: null,
+    error: "",
+  };
+  componentDidMount() {
+    let slug = this.props.match.params.slug;
+    fetch(ArticlesURL + "/" + slug)
       .then((res) => {
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -28,18 +29,21 @@ export default class SinglePost extends React.Component {
       });
   }
   render() {
-    const {article ,error} = this.state;
-    if(error){
-      return <p>{error}</p>
+    const { article, error } = this.state;
+    if (error) {
+      return <p>{error}</p>;
     }
-    if(!article){
-      return <Loader/>
+    if (!article) {
+      return <Loader />;
     }
     return (
       <>
         <article className="container mb-10">
           <div className="single-article">
-          <h3 className="ml-28 text-white text-5xl font-bold"> {article.title}</h3>
+            <h3 className="ml-28 text-white text-5xl font-bold">
+              {" "}
+              {article.title}
+            </h3>
             <div className="flex my-10">
               <div className="ml-28 mr-2">
                 <img className="img-post" src="" />
@@ -55,10 +59,24 @@ export default class SinglePost extends React.Component {
             <h6 className="inline-block mt-5 light-gray border border-gray-300 text-xs rounded-lg px-2 py-1 ">
               database
             </h6>
-            </div>
+          </div>
           <hr className="my-5"></hr>
         </article>
+        {this.props.user?(<footer className="text-center mt-16">
+          <div>
+            <p>
+              <Link className="primColor" to="/login">Sign in</Link> or 
+              <Link className="primColor" to="/signup"> Sign up</Link>  to add comments on article
+            </p>
+          </div>
+        </footer>
+        )
+        :""
+        }
+
       </>
     );
   }
 }
+
+export default withRouter(SinglePost)

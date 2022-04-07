@@ -38,18 +38,21 @@ function NonAuthHeader() {
 function AuthHeader() {
   return (
     <ul className="flex item-center py-4">
-              <li className="nav-item mr-4 text-xl">
+              <li className="nav-item mr-8 text-xl">
                 <NavLink activeClassName="active" to="/" exact>
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item  mr-4 text-xl">
+              <li className="nav-item  mr-8 text-xl">
+              <i className="fas fa-edit mr-1"></i>
                 <NavLink activeClassName="active" to="/new_post">New Article</NavLink>
               </li>
-              <li className="nav-item mr-4 text-xl">
+              <li className="nav-item mr-8 text-xl">
+              <i class="fa fa-gear mr-1"></i>
                 <NavLink activeClassName="active" to="/settings">Settings</NavLink>
               </li>
               <li className="nav-item text-xl">
+              <i class="fa fa-user mr-1"></i>
                 <NavLink activeClassName="active" to="/profile">Profile</NavLink>
               </li>
               
