@@ -77,7 +77,7 @@ class Home extends React.Component {
             <div className="flex-65 mt-4">
               <div>
                 <PostNav activeTab={activeTab} emptyTab={this.emptyTab}/>
-                <Posts articles={articles} error={error} />
+                <Posts articles={articles} error={error} user={this.props.user}/>
                 <Pagination
                   articlesCount={articlesCount}
                   articlesPerPage={articlesPerPage}

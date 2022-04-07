@@ -11,6 +11,8 @@ import NewPost from "./NewPost";
 import Profile from "./Profile";
 import Setting from "./Setting";
 import Loader from "./Loader";
+import EditArticle from './EditArticle'
+
 class App extends React.Component {
   state = {
     isLoggedIn: false,
@@ -58,7 +60,7 @@ class App extends React.Component {
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         {this.state.isLoggedIn ? (
-          <AuthenticatedApp user={this.state.user} />
+          <AuthenticatedApp user={this.state.user} updateUser={this.updateUser}/>
         ) : (
           <UnauthenticatedApp
             user={this.state.user}
@@ -75,14 +77,17 @@ function AuthenticatedApp(props) {
     <>
       <Switch>
         <Route path="/" exact>
-          <Home />
+          <Home user={props.user}/>
         </Route>
         <Route path="/new_post">
           <NewPost user={props.user}/>
         </Route>
         <Route path="/settings">
-          <Setting />
+          <Setting user={props.user} updateUser={props.updateUser}/>
         </Route>
+        <Route path="/edit-article/:slug">
+        <EditArticle user={props.user}/>
+      </Route>
         <Route path="/profile">
           <Profile user={props.user}/>
         </Route>

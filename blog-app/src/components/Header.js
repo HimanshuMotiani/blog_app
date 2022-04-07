@@ -8,7 +8,7 @@ function Header(props) {
             <h5 className="text-2xl primColor py-4">conduit</h5>
           </NavLink>
           <nav>
-            {props.isLoggedIn ? <AuthHeader/>: <NonAuthHeader/>}
+            {props.isLoggedIn ? <AuthHeader user={props.user}/>: <NonAuthHeader/>}
           </nav>
         </div>
       </header>
@@ -19,15 +19,15 @@ function Header(props) {
 function NonAuthHeader() {
   return (
     <ul className="flex item-center py-4">
-              <li className="nav-item mr-4 text-xl">
+              <li className=" mr-4 text-xl">
                 <NavLink activeClassName="active" to="/" exact>
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item  mr-4 text-xl">
+              <li className="  mr-4 text-xl">
                 <NavLink activeClassName="active" to="/login">SignIn</NavLink>
               </li>
-              <li className="nav-item text-xl">
+              <li className=" text-xl">
                 <NavLink activeClassName="active" to="/signup">SignUp</NavLink>
               </li>
               
@@ -35,25 +35,25 @@ function NonAuthHeader() {
   )
 }
 
-function AuthHeader() {
+function AuthHeader(props) {
   return (
     <ul className="flex item-center py-4">
-              <li className="nav-item mr-8 text-xl">
+              <li className="text-gray-400  mr-8 text-xl">
                 <NavLink activeClassName="active" to="/" exact>
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item  mr-8 text-xl">
+              <li className=" text-gray-400 mr-8 text-xl">
               <i className="fas fa-edit mr-1"></i>
                 <NavLink activeClassName="active" to="/new_post">New Article</NavLink>
               </li>
-              <li className="nav-item mr-8 text-xl">
+              <li className="text-gray-400  mr-8 text-xl">
               <i class="fa fa-gear mr-1"></i>
                 <NavLink activeClassName="active" to="/settings">Settings</NavLink>
               </li>
-              <li className="nav-item text-xl">
+              <li className="text-gray-400  text-xl">
               <i class="fa fa-user mr-1"></i>
-                <NavLink activeClassName="active" to="/profile">Profile</NavLink>
+                <NavLink activeClassName="active" to="/profile">{props.user.username}</NavLink>
               </li>
               
             </ul>

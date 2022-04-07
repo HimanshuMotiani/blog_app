@@ -1,6 +1,8 @@
 import React from "react";
 import validateErrors from '../utils/validateErrors'
-export default class Setting extends React.Component {
+import {userVerifyURL} from '../utils/constants'
+import { withRouter } from 'react-router-dom';
+class Setting extends React.Component {
   state = {
     image: "",
     username: "",
@@ -15,11 +17,53 @@ export default class Setting extends React.Component {
       password: "",
     },
   };
+  componentDidMount() {
+    let { username, email, image, bio } = this.props.user;
+    this.setState({ username, email, image, bio });
+  }
   handleChange = (event) => {
     let { name, value } = event.target;
     let { errors } = this.state;
     validateErrors(errors, name, value);
     this.setState({ [name]: value });
+  };
+  handleLogout = () => {
+    localStorage.clear();
+    this.props.history.push('/');
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    let { image, username, bio, email, password } = this.state;
+    let body = {
+      user: {
+        email,
+        bio,
+        image,
+        username,
+      },
+    };
+    if (password) body.user.password = password;
+    fetch(userVerifyURL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + this.props.user.token,
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((errors) => Promise.reject(errors));
+        }
+        return res.json();
+      })
+      .then((user) => {
+        this.props.updateUser(user.user);
+        this.props.history.push('/');
+      })
+      .catch((errors) => {
+        this.setState({ errors: errors.errors });
+      });
   };
   render() {
     let { image, username, bio, email, password, errors } = this.state;
@@ -98,3 +142,5 @@ export default class Setting extends React.Component {
     );
   }
 }
+
+export default withRouter(Setting)
