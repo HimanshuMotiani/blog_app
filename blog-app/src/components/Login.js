@@ -1,13 +1,14 @@
 import React from 'react'
 import validateErrors from '../utils/validateErrors'
 import { NavLink } from 'react-router-dom';
-import {LoginURL} from '../utils/constants'
+import {LoginURL} from '../utils/constants';
+import { withRouter } from 'react-router-dom';
 class Login extends React.Component{
     constructor(){
         super()
         this.state = {
-            email:'',
-            password:'',
+            email:'chichi1@gmail.com',
+            password:'123456',
             errors:{
                 email:'',
                 password:'',  
@@ -42,9 +43,9 @@ class Login extends React.Component{
             }
             return res.json();
         })
-        .then(result=> {
-            this.setState({ email: '', password: '' });
-            console.log(result)
+        .then(({user})=> {
+            this.props.updateUser(user)
+            this.props.history.push('/');
         })
         .catch((errors)=>{
             this.setState({
@@ -81,4 +82,4 @@ class Login extends React.Component{
         )
     }
 }
-export default Login
+export default withRouter(Login)

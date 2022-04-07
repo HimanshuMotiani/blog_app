@@ -2,8 +2,9 @@ import React from "react";
 import validateErrors from "../utils/validateErrors";
 import { NavLink } from "react-router-dom";
 import {RegistrationURL} from "../utils/constants";
+import { withRouter } from 'react-router-dom';
 class Signup extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       username: "",
@@ -32,24 +33,24 @@ class Signup extends React.Component {
       },
     };
     fetch(RegistrationURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
       .then((res) => {
         if (!res.ok) {
           return res.json().then(({ errors }) => {
             return Promise.reject(errors);
-          });
-        }
+          })
+        } 
         return res.json();
       })
-      .then((res) => {
-        this.setState({ username: '', email: '', password: '' });
-        
-        console.log(res)
-        this.props.history.push('/');
+      .then(({user}) => {
+        this.props.updateUser(user)
+        this.setState({ username: '', email: '', password: '' }); 
+        this.props.history.push("/")
       })
+      .catch((errors) => this.setState({ errors }));
       
   };
 
@@ -109,4 +110,4 @@ class Signup extends React.Component {
     );
   }
 }
-export default Signup;
+export default withRouter(Signup);
