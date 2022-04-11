@@ -1,4 +1,3 @@
-import { BaseURL } from "../utils/constants";
 import '../loader.css'
 function Loader() {
   return (

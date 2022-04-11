@@ -25,13 +25,14 @@ export default class Tags extends React.Component {
   }
 
   render() {
-      const {tags,error} =this.state
+      let {tags,error} =this.state
       if(!tags){
           return <Loader/>
       }
       if(error){
         return <p>{error}</p>
       }
+      tags = tags.filter(tag=>tag !== "")
     return (
         <aside className="sidebar">
             <h3 className="font-bold text-xl my-4">Popular Tags</h3>
@@ -40,8 +41,6 @@ export default class Tags extends React.Component {
                     <span key={tag} onClick={()=>this.props.addTab(tag)} className="tags cursor-pointer text-sm hover:bg-gray-300">{tag}</span>
                 ))}
             </div>
-            
-
         </aside>
     );
   }

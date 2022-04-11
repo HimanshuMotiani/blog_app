@@ -36,7 +36,7 @@ export default class Post extends React.Component {
           <div className="flex my-4 justify-between items-center">
             <div className="flex">
               <div className="mr-2">
-                <img className="img-post" src={author.image} />
+                <img className="img-post" src={author.image} alt={author.username}/>
               </div>
               <div>
                 <h5 className="primColor text-sm">{author.username}</h5>

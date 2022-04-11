@@ -66,7 +66,7 @@ class SinglePost extends React.Component {
             </h3>
             <div className="flex my-10">
               <div className="ml-28 mr-2">
-                <img className="img-post" src="" />
+                <img className="img-post" src="" alt=""/>
               </div>
               <div className="">
                 <h5 className="primColor text-sm">{article.author.username}</h5>
@@ -77,7 +77,7 @@ class SinglePost extends React.Component {
               <div>
                 <button className="border border-gray-400 rounded ml-6 px-3 text-sm py-1 text-gray-400 hover:bg-gray-400 hover:text-white">
                   <Link to={`/edit-article/${article.slug}`}>
-                    <i class="fas fa-edit"></i> Edit Article
+                    <i className="fas fa-edit"></i> Edit Article
                   </Link>
                 </button>
                 <button
@@ -86,7 +86,7 @@ class SinglePost extends React.Component {
                     this.handleDelete(article.slug);
                   }}
                 >
-                  <i class="fas fa-trash-alt"></i> Delete Article
+                  <i className="fas fa-trash-alt"></i> Delete Article
                 </button>
               </div>
             ) : (

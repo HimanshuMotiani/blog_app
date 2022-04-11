@@ -14,7 +14,7 @@ export default function Pagination(props) {
         </div>
         <div className="pagination-count">
             {pagesArr.map(page=>(
-                <span onClick={()=>updateCurrentPageIndex(page)} className={ activePageIndex === page ? "activePage pages":"pages"}>{page}</span>
+                <span key={page} onClick={()=>updateCurrentPageIndex(page)} className={ activePageIndex === page ? "activePage pages cursor-pointer":"pages cursor-pointer"}>{page}</span>
             ))}
         </div>
         <div className="text-xl mt-1">

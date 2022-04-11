@@ -11,7 +11,7 @@ import NewPost from "./NewPost";
 import Profile from "./Profile";
 import Setting from "./Setting";
 import Loader from "./Loader";
-import EditArticle from './EditArticle'
+import EditArticle from "./EditArticle";
 
 class App extends React.Component {
   state = {
@@ -60,7 +60,10 @@ class App extends React.Component {
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         {this.state.isLoggedIn ? (
-          <AuthenticatedApp user={this.state.user} updateUser={this.updateUser}/>
+          <AuthenticatedApp
+            user={this.state.user}
+            updateUser={this.updateUser}
+          />
         ) : (
           <UnauthenticatedApp
             user={this.state.user}
@@ -77,19 +80,19 @@ function AuthenticatedApp(props) {
     <>
       <Switch>
         <Route path="/" exact>
-          <Home user={props.user}/>
+          <Home user={props.user} />
         </Route>
         <Route path="/new_post">
-          <NewPost user={props.user}/>
+          <NewPost user={props.user} />
         </Route>
         <Route path="/settings">
-          <Setting user={props.user} updateUser={props.updateUser}/>
+          <Setting user={props.user} updateUser={props.updateUser} />
         </Route>
         <Route path="/edit-article/:slug">
-        <EditArticle user={props.user}/>
-      </Route>
+          <EditArticle user={props.user} />
+        </Route>
         <Route path="/profile">
-          <Profile user={props.user}/>
+          <Profile user={props.user} />
         </Route>
         <Route path="/article/:slug">
           <SinglePost user={props.user} />

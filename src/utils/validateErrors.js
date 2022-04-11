@@ -31,5 +31,7 @@ export default function validateErrors(errors, name, value) {
       let tagListError = value.length === 0 ? "field can not be empty!" : "";
       errors.tagList = tagListError;
       break;
+      default:
+      break;
   }
 }

@@ -11,37 +11,44 @@ class Home extends React.Component {
     articlesCount: 0,
     articlesPerPage: 10,
     activePageIndex: 1,
-    activeTab:''
+    activeTab: "",
   };
-  emptyTab=() =>{
+  emptyTab = () => {
     this.setState({
-      activeTab :""
-    })
-  }
-  addTab = (value)=>{
+      activeTab: "",
+    });
+  };
+  addTab = (value) => {
     this.setState({
-      activeTab :value
-    })
-  }
+      activeTab: value,
+    });
+  };
   componentDidMount() {
     this.fetchData();
   }
-  componentDidUpdate(_prevProps,prevState){
-    if(prevState.activePageIndex !== this.state.activePageIndex || prevState.activeTab !== this.state.activeTab){
-      this.fetchData()
+  componentDidUpdate(_prevProps, prevState) {
+    if (
+      prevState.activePageIndex !== this.state.activePageIndex ||
+      prevState.activeTab !== this.state.activeTab
+    ) {
+      this.fetchData();
     }
-
   }
-  updateCurrentPageIndex = (index)=>{
-    this.setState({
-      activePageIndex : index
-    },this.fetchData)
-  }
+  updateCurrentPageIndex = (index) => {
+    this.setState(
+      {
+        activePageIndex: index,
+      },
+      this.fetchData
+    );
+  };
   fetchData = () => {
     const limit = this.state.articlesPerPage;
-    const offset = (this.state.activePageIndex-1) * limit;
+    const offset = (this.state.activePageIndex - 1) * limit;
     const tag = this.state.activeTab;
-    fetch(ArticlesURL  +`/?offset=${offset}&limit=${limit}` + (tag && `&tag=${tag}`))
+    fetch(
+      ArticlesURL + `/?offset=${offset}&limit=${limit}` + (tag && `&tag=${tag}`)
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -62,8 +69,14 @@ class Home extends React.Component {
       });
   };
   render() {
-    const { articles, error, articlesCount, articlesPerPage, activePageIndex,activeTab } =
-      this.state;
+    const {
+      articles,
+      error,
+      articlesCount,
+      articlesPerPage,
+      activePageIndex,
+      activeTab,
+    } = this.state;
     return (
       <>
         <div className="primBack text-center py-9">
@@ -76,8 +89,12 @@ class Home extends React.Component {
           <div className="flex">
             <div className="flex-65 mt-4">
               <div>
-                <PostNav activeTab={activeTab} emptyTab={this.emptyTab}/>
-                <Posts articles={articles} error={error} user={this.props.user}/>
+                <PostNav activeTab={activeTab} emptyTab={this.emptyTab} />
+                <Posts
+                  articles={articles}
+                  error={error}
+                  user={this.props.user}
+                />
                 <Pagination
                   articlesCount={articlesCount}
                   articlesPerPage={articlesPerPage}
@@ -87,7 +104,7 @@ class Home extends React.Component {
               </div>
             </div>
             <div className="flex-30 mt-4">
-              <Tags addTab={this.addTab}/>
+              <Tags addTab={this.addTab} />
             </div>
           </div>
         </div>

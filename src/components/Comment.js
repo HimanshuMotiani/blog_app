@@ -26,7 +26,7 @@ export default function Comment(props) {
               props.handleDelete(id);
             }}
           >
-            <i class="fas fa-trash-alt"></i>
+            <i className="fas fa-trash-alt"></i>
           </button>
         ) : (
           ''
