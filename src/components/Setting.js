@@ -2,6 +2,7 @@ import React from "react";
 import validateErrors from '../utils/validateErrors'
 import {userVerifyURL} from '../utils/constants'
 import { withRouter } from 'react-router-dom';
+import UserContext from "./UserContext";
 class Setting extends React.Component {
   state = {
     image: "",
@@ -17,8 +18,9 @@ class Setting extends React.Component {
       password: "",
     },
   };
+  static contextType = UserContext
   componentDidMount() {
-    let { username, email, image, bio } = this.props.user;
+    let { username, email, image, bio } = this.context.user;
     this.setState({ username, email, image, bio });
   }
   handleChange = (event) => {
@@ -47,7 +49,7 @@ class Setting extends React.Component {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
       body: JSON.stringify(body),
     })
@@ -58,7 +60,7 @@ class Setting extends React.Component {
         return res.json();
       })
       .then((user) => {
-        this.props.updateUser(user.user);
+        this.context.updateUser(user.user);
         this.props.history.push('/');
       })
       .catch((errors) => {

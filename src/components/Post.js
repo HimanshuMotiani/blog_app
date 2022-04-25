@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArticlesURL } from "../utils/constants";
+import UserContext from "./UserContext";
 export default class Post extends React.Component {
   state = {
     favorited: null,
     favoritesCount: 0,
   };
+  static contextType = UserContext;
   componentDidMount() {
     let { favorited, favoritesCount } = this.props;
     this.setState({ favorited, favoritesCount });
   }
   handleFavorite = (slug) => {
     let method = this.state.favorited ? "DELETE" : "POST";
-    let token = this.props.user ? "Token " + this.props.user.token : "";
+    let token = this.context.user ? "Token " + this.context.user.token : "";
     fetch(ArticlesURL + `/${slug}/favorite`, {
       method,
       headers: {
@@ -44,7 +46,7 @@ export default class Post extends React.Component {
               </div>
             </div>
             <div className="like-btn text-lg">
-              {this.props.user && (
+              {this.context.user && (
                 <button
                   className={`border rounded py-1 px-2 text-sm shadow ${
                     favorited ? "primColor text-white" : "bg-white text-green"

@@ -13,6 +13,7 @@ import Setting from "./Setting";
 import Loader from "./Loader";
 import EditArticle from "./EditArticle";
 import ErrorBoundary from "./ErrorBoundary";
+import UserContext from "./UserContext";
 
 class App extends React.Component {
   state = {
@@ -54,13 +55,15 @@ class App extends React.Component {
     }
   }
   render() {
+    let { isLoggedIn, user } = this.state;
     if (this.state.userVerifying) {
       return <Loader />;
     }
     return (
       <>
+      <UserContext.Provider value={{isLoggedIn,user,updateUser:this.updateUser}}>
       <ErrorBoundary>
-        <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
+        <Header/>
         </ErrorBoundary>
         <ErrorBoundary>
         {this.state.isLoggedIn ? (
@@ -75,6 +78,7 @@ class App extends React.Component {
           />
         )}
         </ErrorBoundary>
+        </UserContext.Provider>
       </>
     );
   }
@@ -85,22 +89,22 @@ function AuthenticatedApp(props) {
     <>
       <Switch>
         <Route path="/" exact>
-          <Home user={props.user} />
+          <Home/>
         </Route>
         <Route path="/new_post">
-          <NewPost user={props.user} />
+          <NewPost/>
         </Route>
         <Route path="/settings">
-          <Setting user={props.user} updateUser={props.updateUser} />
+          <Setting/>
         </Route>
         <Route path="/edit-article/:slug">
-          <EditArticle user={props.user} />
+          <EditArticle/>
         </Route>
         <Route path="/profile">
-          <Profile user={props.user} />
+          <Profile/>
         </Route>
         <Route path="/article/:slug">
-          <SinglePost user={props.user} />
+          <SinglePost/>
         </Route>
         <Route path="*">
           <NoMatch />
@@ -118,13 +122,13 @@ function UnauthenticatedApp(props) {
           <Home />
         </Route>
         <Route path="/login">
-          <Login updateUser={props.updateUser} />
+          <Login/>
         </Route>
         <Route path="/signup">
-          <Signup updateUser={props.updateUser} />
+          <Signup/>
         </Route>
         <Route path="/article/:slug">
-          <SinglePost user={props.user} />
+          <SinglePost/>
         </Route>
         <Route path="*">
           <NoMatch />

@@ -4,6 +4,7 @@ import PostNav from "./PostNav";
 import Posts from "./Posts";
 import Tags from "./Tags";
 import Pagination from "./Pagination";
+import UserContext from "./UserContext";
 class Home extends React.Component {
   state = {
     articles: null,
@@ -13,6 +14,7 @@ class Home extends React.Component {
     activePageIndex: 1,
     activeTab: "",
   };
+  static contextType = UserContext
   emptyTab = () => {
     this.setState({
       activeTab: "",
@@ -93,7 +95,6 @@ class Home extends React.Component {
                 <Posts
                   articles={articles}
                   error={error}
-                  user={this.props.user}
                 />
                 <Pagination
                   articlesCount={articlesCount}

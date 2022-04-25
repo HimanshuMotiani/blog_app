@@ -2,6 +2,7 @@ import React from "react";
 import validateErrors from "../utils/validateErrors";
 import { ArticlesURL } from "../utils/constants";
 import {withRouter} from 'react-router-dom'
+import UserContext from "./UserContext";
 class NewPost extends React.Component {
   state = {
     title: "",
@@ -15,6 +16,7 @@ class NewPost extends React.Component {
       tagList: "",
     },
   };
+  static contextType = UserContext
   handleChange = (event) => {
     let { name, value } = event.target;
     let errors = this.state.errors;
@@ -40,7 +42,7 @@ class NewPost extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${this.props.user.token}`,
+        Authorization: `Token ${this.context.user.token}`,
       },
       body: JSON.stringify(data),
     })

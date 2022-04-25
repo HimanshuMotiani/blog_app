@@ -14,7 +14,7 @@ export default function Posts(props){
   }
     return (
         articles.map((article)=>(
-                <Post {...article} key={article.slug} user={props.user}/>
+                <Post {...article} key={article.slug}/>
                ) 
         )
     )

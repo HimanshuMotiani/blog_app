@@ -3,6 +3,7 @@ import validateErrors from '../utils/validateErrors'
 import { NavLink } from 'react-router-dom';
 import {LoginURL} from '../utils/constants';
 import { withRouter } from 'react-router-dom';
+import UserContext from './UserContext';
 class Login extends React.Component{
     constructor(){
         super()
@@ -15,6 +16,7 @@ class Login extends React.Component{
             }
         }
     }
+    static contextType = UserContext
     handleChange = (event)=>{
         let {name,value} = event.target;
         let errors = this.state.errors;
@@ -44,7 +46,7 @@ class Login extends React.Component{
             return res.json();
         })
         .then(({user})=> {
-            this.props.updateUser(user)
+            this.context.updateUser(user)
             this.props.history.push('/');
         })
         .catch((errors)=>{
