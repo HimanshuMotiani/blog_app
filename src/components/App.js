@@ -12,6 +12,7 @@ import Profile from "./Profile";
 import Setting from "./Setting";
 import Loader from "./Loader";
 import EditArticle from "./EditArticle";
+import ErrorBoundary from "./ErrorBoundary";
 
 class App extends React.Component {
   state = {
@@ -58,7 +59,10 @@ class App extends React.Component {
     }
     return (
       <>
+      <ErrorBoundary>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
+        </ErrorBoundary>
+        <ErrorBoundary>
         {this.state.isLoggedIn ? (
           <AuthenticatedApp
             user={this.state.user}
@@ -70,6 +74,7 @@ class App extends React.Component {
             updateUser={this.updateUser}
           />
         )}
+        </ErrorBoundary>
       </>
     );
   }
