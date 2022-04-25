@@ -3,12 +3,14 @@ import { Link, withRouter} from "react-router-dom";
 import { ArticlesURL } from "../utils/constants";
 import Loader from "./Loader";
 import CommentBox from './CommentBox'
+import UserContext from "./UserContext";
 
 class SinglePost extends React.Component {
   state = {
     article: null,
     error: "",
   };
+  static contextType = UserContext;
   componentDidMount() {
     let slug = this.props.match.params.slug;
     fetch(ArticlesURL + "/" + slug)
@@ -35,7 +37,7 @@ class SinglePost extends React.Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
     })
       .then((res) => {
@@ -72,8 +74,8 @@ class SinglePost extends React.Component {
                 <h5 className="primColor text-sm">{article.author.username}</h5>
                 <h6 className="light-gray text-sm">{article.createdAt}</h6>
               </div>
-              {this.props.user &&
-            this.props.user.username === article.author.username ? (
+              {this.context.user &&
+            this.context.user.username === article.author.username ? (
               <div>
                 <button className="border border-gray-400 rounded ml-6 px-3 text-sm py-1 text-gray-400 hover:bg-gray-400 hover:text-white">
                   <Link to={`/edit-article/${article.slug}`}>
@@ -109,7 +111,7 @@ class SinglePost extends React.Component {
           </div>
           <hr className="my-5"></hr>
         </article>
-        {!this.props.user?(<footer className="text-center mt-16">
+        {!this.context.user?(<footer className="text-center mt-16">
           <div>
             <p>
               <Link className="primColor" to="/login">Sign in</Link> or 
@@ -118,7 +120,7 @@ class SinglePost extends React.Component {
           </div>
         </footer>
         )
-        :<CommentBox slug={this.props.match.params.slug} user={this.props.user}/>
+        :<CommentBox slug={this.props.match.params.slug}/>
         }
 
       </>

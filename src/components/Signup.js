@@ -3,6 +3,7 @@ import validateErrors from "../utils/validateErrors";
 import { NavLink } from "react-router-dom";
 import {RegistrationURL} from "../utils/constants";
 import { withRouter } from 'react-router-dom';
+import UserContext from "./UserContext";
 class Signup extends React.Component {
   constructor(props) {
     super();
@@ -17,6 +18,7 @@ class Signup extends React.Component {
       },
     };
   }
+  static contextType = UserContext
   handleChange = (event) => {
     let { name, value } = event.target;
     let errors = this.state.errors;
@@ -46,7 +48,7 @@ class Signup extends React.Component {
         return res.json();
       })
       .then(({user}) => {
-        this.props.updateUser(user)
+        this.context.updateUser(user)
         this.setState({ username: '', email: '', password: '' }); 
         this.props.history.push("/")
       })

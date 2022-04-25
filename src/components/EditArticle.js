@@ -3,6 +3,7 @@ import { ArticlesURL } from '../utils/constants';
 import validateErrors from '../utils/validateErrors';
 import { withRouter } from 'react-router-dom';
 import Loader from './Loader';
+import UserContext from './UserContext';
 
 class EditArticle extends Component {
   state = {
@@ -19,6 +20,7 @@ class EditArticle extends Component {
       tagList: '',
     },
   };
+  static contextType = UserContext
   componentDidMount() {
     let slug = this.props.match.params.slug;
     fetch(ArticlesURL + '/' + slug)
@@ -69,7 +71,7 @@ class EditArticle extends Component {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
       body: JSON.stringify(data),
     })

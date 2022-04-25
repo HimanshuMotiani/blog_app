@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "./UserContext";
 function Header(props) {
+  let {isLoggedIn} = useContext(UserContext)
   return (
     <>
       <header className="navbar">
@@ -8,8 +11,8 @@ function Header(props) {
             <h5 className="text-2xl primColor py-4">conduit</h5>
           </NavLink>
           <nav>
-            {props.isLoggedIn ? (
-              <AuthHeader user={props.user} />
+            {isLoggedIn ? (
+              <AuthHeader/>
             ) : (
               <NonAuthHeader />
             )}
@@ -42,7 +45,8 @@ function NonAuthHeader() {
   );
 }
 
-function AuthHeader(props) {
+function AuthHeader() {
+  let {user} = useContext(UserContext)
   return (
     <ul className="flex item-center py-4">
       <li className="text-gray-400  mr-8 text-xl">
@@ -65,7 +69,7 @@ function AuthHeader(props) {
       <li className="text-gray-400  text-xl">
         <i class="fa fa-user mr-1"></i>
         <NavLink activeClassName="active" to="/profile">
-          {props.user.username}
+          {user.username}
         </NavLink>
       </li>
     </ul>

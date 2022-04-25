@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Loader from './Loader';
 import Comment from './Comment';
 import { ArticlesURL } from '../utils/constants';
+import UserContext from './UserContext';
 
 export default class Comments extends Component {
-
+ static contextType = UserContext
   componentDidMount() {
     this.props.fetchComments();
   }
@@ -13,7 +14,7 @@ export default class Comments extends Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
     }).then(this.props.fetchComments)
   };
@@ -34,7 +35,6 @@ export default class Comments extends Component {
               comment={comment}
               key={comment.id}
               handleDelete={this.handleDelete}
-              user={this.props.user}
             />
           );
         })}

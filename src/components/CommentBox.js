@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ArticlesURL } from '../utils/constants';
 import Comments from './Comments';
+import UserContext from './UserContext';
 
 export default class CommentBox extends Component {
   state = {
@@ -8,7 +9,7 @@ export default class CommentBox extends Component {
     errors: null,
     body: '',
   };
-
+  static contextType = UserContext;
   handleChange = (event) => {
     let { name, value } = event.target;
     this.setState({ [name]: value });
@@ -24,7 +25,7 @@ export default class CommentBox extends Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
       body: JSON.stringify(body),
     })
@@ -49,7 +50,7 @@ export default class CommentBox extends Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + this.props.user.token,
+        Authorization: 'Token ' + this.context.user.token,
       },
     })
       .then((res) => {
@@ -99,7 +100,6 @@ export default class CommentBox extends Component {
           slug={this.props.slug}
           fetchComments={this.fetchComments}
           state={this.state}
-          user={this.props.user}
         />
       </section>
     );

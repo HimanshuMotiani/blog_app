@@ -3,12 +3,14 @@ import { ArticlesURL } from "../utils/constants";
 import ProfileBanner from './ProfileBanner';
 import ProfileFeedNav from './ProfileFeedNav'
 import Posts from './Posts';
+import UserContext from "./UserContext";
 export default class Profile extends React.Component {
   state = {
     activeTab: "author",
     articles: [],
     error:null
   };
+  static contextType = UserContext;
   componentDidMount() {
     this.fetchData();
   }
@@ -18,7 +20,7 @@ export default class Profile extends React.Component {
     });
   };
   fetchData = () => {
-    fetch(ArticlesURL + `/?${this.state.activeTab}=${this.props.user.username}`)
+    fetch(ArticlesURL + `/?${this.state.activeTab}=${this.context.user.username}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -39,7 +41,7 @@ export default class Profile extends React.Component {
 
   render() {
     let { articles, error, activeTab } = this.state;
-    let username  = this.props.user.username;
+    let username  = this.context.user.username;
     return (
       <section>
         <ProfileBanner username={username} />
